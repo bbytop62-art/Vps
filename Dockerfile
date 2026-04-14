@@ -1,18 +1,16 @@
-# Use Ubuntu 22.04 LTS
 FROM ubuntu:22.04
 
-# Install necessary packages (remove systemd)
+# Install shellinabox
 RUN apt-get update && \
-    apt-get install -y shellinabox && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y shellinabox && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/*
 
-# Create user bbytop
+# Create user
 RUN useradd -m -s /bin/bash bbytop && \
     echo 'bbytop:bbytop' | chpasswd
 
-# Expose port
 EXPOSE 4200
 
-# Start shellinabox in foreground (no systemd)
-CMD ["/usr/bin/shellinaboxd", "--background=/dev/null", "--service=/:LOGIN", "--port=4200", "--no-beep"]
+# Run in foreground with proper options
+CMD ["/usr/bin/shellinaboxd", "--service=/:LOGIN", "--port=4200", "--disable-ssl", "--localhost-only=0", "--no-beep", "--static-file=/shellinabox/stylesheet.css"]
