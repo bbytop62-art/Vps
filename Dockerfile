@@ -12,5 +12,5 @@ RUN useradd -m -s /bin/bash bbytop && \
 
 EXPOSE 4200
 
-# Run in foreground with proper options
-CMD ["/usr/bin/shellinaboxd", "--service=/:LOGIN", "--port=4200", "--disable-ssl", "--localhost-only=0", "--no-beep", "--static-file=/shellinabox/stylesheet.css"]
+# Fixed command - remove --localhost-only argument
+CMD ["/usr/bin/shellinaboxd", "--service=/:LOGIN", "--port=4200", "--disable-ssl", "--no-beep"]
