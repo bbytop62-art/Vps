@@ -395,8 +395,7 @@ def run_script(script_path, script_owner_id, user_folder, file_name, message_obj
                             return
                     else:
                          error_summary = stderr[:500]
-                         bot.reply_to(message_obj_for_reply, f"❌ Error in script pre-check for '{file_name}':\n```\n{error_summary}\n```\nFix the script.", parse_mode='Markdown')
-                         return
+                         bot.reply_to(message_obj_for_reply, f"❌ Error in script pre-check for '{file_name}':\n{error_summary}\nFix the script.", parse_mode=None)
             except subprocess.TimeoutExpired:
                 logger.info("Python Pre-check timed out (>5s), imports likely OK. Killing check process.")
                 if check_proc and check_proc.poll() is None: check_proc.kill(); check_proc.communicate()
